@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>K-Means</title>
+
+    <style>
+        #container {
+            width: 100%;
+        }
+        #canvas {
+            border: solid 1px;
+        }
+        #canvasContainer {
+            padding-left: 0;
+            padding-right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            width:800px;
+        }
+    </style>
+
+    <script type="text/javascript" src="utils.js"></script>
+    <script type="text/javascript" src="point.js"></script>
+    <script type="text/javascript" src="cluster.js"></script>
+    <script type="text/javascript" src="kmeans.js"></script>
+</head>
+
+<body>
+<a href="https://github.com/hcesar/kmeans-js">
+	<img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub" />
+</a>
+    <div id="container">
+         <div id="canvasContainer">
+             <!--<h1>Exemplo de algoritmo de clusterização <a href="http://en.wikipedia.org/wiki/K-means_clustering">K-Means</a></h1><br />
+             Insira os pontos na área abaixo, selecione o número de grupos e clique em agrupar.<br />
+           -->Groups: <input type="text" id="grupos" /><input type="button" value="Create" onclick="doKMeansClustering();" /><br /><br />
+             <canvas id="canvas" width="780" height="100"></canvas>
+         </div>
+    </div>
+
+</body>
+
+<script>
+
+    var canvas = document.getElementById('canvas');
+    this.xhr=new XMLHttpRequest();
+    var othis=this;
+    var points = [];
+    window.onload=function(){
+      //alert("fghgfhfghh");
+      othis.xhr.onreadystatechange=othis.pushpoints;
+
+  		othis.xhr.open("GET","http://localhost/SE/fetchpoints.php",true);
+
+  		othis.xhr.send();
+    }
+    othis.pushpoints = function(){
+      var response=othis.xhr.responseText;
+      //alert("61");
+      //salert(response);
+        if(othis.xhr.readyState==4 && othis.xhr.status==200){
+        var response=othis.xhr.responseText;
+        alert("65");
+        alert(response);
+        var pointss=response.split(";");
+        var i=0;
+        //alert(pointss);
+
+
+        for(i=0;i<pointss.length-1;i++){
+            var x=parseInt(pointss[i].split(",")[0]);
+            var y=parseFloat(pointss[i].split(",")[1]);
+            var z=parseFloat(pointss[i].split(",")[2]);
+            canvas.drawCircle(x,y, 3, 'black');
+            points.push(new pointz(x,y,z));
+        }
+      }
+    }
+
+    /*canvas.onclick = function (e) {
+        var x = e.offsetX, y = e.offsetY;
+        canvas.drawCircle(x, y, 5, 'black');
+        points.push(new Point(x, y));
+    }
+    */
+    var ctx = canvas.context;
+    canvas.drawCircle = function (x,y, radius, fillColor) {
+        var ctx = canvas.getContext('2d');
+        ctx.beginPath();
+        ctx.fillStyle = fillColor;
+        ctx.arc(x,y, radius, 0, Math.PI * 2, false);
+        ctx.fill();
+    }
+
+    canvas.clear = function () {
+        canvas.width = canvas.width;
+    }
+    function doKMeansClustering() {
+        var clusterCount =5;
+        var clusters = new KMeans().getClusters(points, clusterCount);
+        var arr="";
+        var count=0;
+        //alert(clusters[0].points[0].z);
+        for (var i = 0; i < clusters.length; i++) {
+            var cluster = clusters[i];
+            var color = getColor(i);
+            //alert(cluster.points.length);
+            //alert("107");
+            for (var p = 0; p < cluster.points.length; p++) {
+                var point = cluster.points[p];
+              //  canvas.drawCircle(point.x, point.y, 5, color);
+              arr=arr+point.x+","+point.y+","+point.z+","+color+";";
+              if(count>=400){
+                othis.xhr.onreadystatechange=othis.clusters;
+                //alert(arr);
+                console.log("chal raha haiii");
+                othis.xhr.open("GET","http://localhost/SE/saveclusters.php?pts="+arr,true);
+                othis.xhr.send();
+                arr="";
+                count=0;
+                //setTimeout(tp,3000);
+              }
+              count++;
+              //alert(point.y);
+            }
+        }
+        //alert((arr.split(";")).length);
+
+    }
+   othis.clusters=function()
+   {
+     var response=othis.xhr.responseText;
+     //alert("123");
+
+     //alert(response);
+     console.log("Sabr Karo");
+     if(othis.xhr.readyState==4 && othis.xhr.status==200){
+     var response=othis.xhr.responseText;
+     alert("129");
+     alert(response);
+   }
+   }
+    function getColor(idx) {
+        return [1,2,3,4,5][idx] ;
+    }
+
+</script>
+
+</html>

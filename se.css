@@ -1,0 +1,35 @@
+.login
+{
+	
+	position:absolute;
+	
+	
+	z-index:2;
+	/*background-color:red;
+	*/
+	width:500px;
+	height:500px;
+	margin-left:60%;
+	/*position: 20%;
+	*/
+}
+
+.nav_bar{
+    
+    /*background: rgba(20, 25, 20, 0.5);
+    position:relative;
+	*/
+	color:graytext;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    
+    z-index: 2;
+    height:60px;
+    width:100%;
+    transition: ease-in-out 0.4s;
+	margin-left:20px;
+	float:left;
+	display:inline;
+}

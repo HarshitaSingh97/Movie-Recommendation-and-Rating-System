@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html  lang="zxx">
+<head>
+	<title>MovieMania</title>
+	<!--<link rel="stylesheet" type="text/css" href="header.css"/>-->
+
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i" rel="stylesheet">
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="css/owl.carousel.css"/>
+	<link rel="stylesheet" href="css/style.css"/>
+	<link rel="stylesheet" href="se.css"/>
+	<link rel="stylesheet" href="style.css"/>
+	<link rel="stylesheet" href="css/animate.css"/>
+
+
+	<link rel="stylesheet" type="text/css" href="suggest.css"/>
+	<script type="text/javascript" src="suggest.js"></script>
+	<style>
+	.genres
+	{
+		width:100%;
+		text-align:left;
+		color:white !important;
+	}
+	.languages
+	{
+		width:100%;
+		text-align:left;
+		color:white !important;
+	}
+	#genrechk
+	{
+		width:100%;
+		border:none;
+		background-color:black;
+		color:white;
+		text-align:center;
+		cursor: pointer;
+		font-size:1em;
+	}
+	#languagechk
+	{
+		width:100%;
+		border:none;
+		background-color:black;
+		color:white;
+		text-align:center;
+		cursor: pointer;
+		font-size:1em;
+	}
+	#displaydiv , #Populardiv, #Latestdiv, #Recommenddiv, #Watchagaindiv{
+		overflow-x: auto;
+		white-space: nowrap;
+		color:black;
+
+	}
+	::-webkit-scrollbar {
+    width: 10px;
+	}
+	body::-webkit-scrollbar {
+		width: 0px;  /* remove scrollbar space */
+		background: transparent;  /* optional: just make scrollbar invisible */
+	}
+	div::-webkit-scrollbar-track {
+
+		border-radius: 10px;
+	}
+
+	div::-webkit-scrollbar-thumb {
+		background: gray;/*rgba( 28, 227, 125, 0.5 );*/
+		border-radius: 10px;
+	}
+
+	div::-webkit-scrollbar-thumb:hover {
+		background: lightgray;/*rgba( 15, 165, 60, 0.4 );*/
+	}
+	p{
+		color:black;
+		margin:0px;
+	}
+	.background{
+		background-image: url('img/bg-4.jpg');
+		height: 290%;
+    width: 100%;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.7;
+		z-index:-1;
+	}
+	</style>
+</head>
+
+<body onload="obj.populateall()" style="overflow-x: hidden;">
+
+<!--div id="preloder">
+		<div class="loader"></div>
+	</div-->
+<header class="header-section">
+    <div class="container">
+      <!-- logo -->
+      <a class="site-logo" href="suggest.html">
+      <img style="position:absolute;top:20px;left:90px" src="MovieMania.png" width="50" display="inline;" height="50" alt="MM">
+        <h2 style="color: white">Movie<span style="color: #ffb320">Mania</span></h2>
+        </a>
+      <!--div class="user-panel">
+        <a href="#">Login</a>  /  <a href="#">Register</a>
+      </div-->
+      <!-- responsive -->
+      <div class="nav-switch">
+        <i class="fa fa-bars"></i>
+      </div>
+      <!-- site menu -->
+      <nav class="main-menu">
+        <ul>
+          <li><a href="userprofile.php">My Profile</a></li>
+          <li><a href="#"  style="color: #ffb320;">Search</a></li>
+          <li><a href="aboutUs.html">About Us</a></li>
+          <li><a href="contactUs.html">Contact Us</a></li>
+          <li><a href="logout.php">Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <!-- Header section end -->
+
+
+
+	<!--span style="float:right;width:7em;margin-right:2em;"><a href="logout.php"><button class="button" style="margin-top:1em;width:7em;height:2em;float:right;"  data-button="LogOut">Log Out</button></a></span-->
+	<!--span style="float:right;width:6.5em;"><a href="userprofile.php"><button class="button" style="margin-top:1em;width:7em;height:2em;" data-button="Profile">Profile</button></a></span>
+
+	<div class="mm" align="center" style="font-size:4em;">Movie Mania</div>
+	<div align="right"-->
+	<div class="background">
+</div>
+
+
+	</div>
+	<div style="min-height:18em; background-image: url('img/bg-7.jpg');">
+		<!--search starts here-->
+		<br>
+		<!--80px-->
+		<div style="width:15em;margin:5px;height:50px;margin-left:70%">
+			<input type="search" placeholder="search" style="text-align:center;height:2em;font-size:0.7em;width:10em;" id="movie" size="50" onkeyup="obj.getMovies()" />
+			<div class="dropdown"> <!--style="width:100%;left-margin:40%;">-->
+				<div style="left-margin:50%;">
+					<center><span><a href="#"><button class="button,dropbtn" style="margin-top:-160px;width:4em;padding-left:0;padding-right:0;" data-button="Filter">FILTER</button></a></span></center>
+					<div class="dropdown-content" style="width:160%">
+						<a href="#"><input type="text" readonly id="genrechk" onclick="showgenre()" value="Genre" name="Genre" /></a>
+						<a href="#" class="genres"><label><input type="checkbox" id="Action" name="Genres" value="Action" style="color:white;"/>Action</label></a>
+						<a href="#" class="genres"><label><input type="checkbox" id="Adventure" name="Genres" value="Crime" style="color:white;"/>Adventure</label></a>
+						<a href="#" class="genres"><label><input type="checkbox" id="Animation" name="Genres" value="Animation" style="color:white;"/>Animation</label></a>
+						<a href="#" class="genres"><label><input type="checkbox" id="Comedy" value="Comedy" name="Genres" style="color:white;"/>Comedy</label></a>
+						<a href="#" class="genres"><label><input type="checkbox" id="Drama" name="Genres" value="Drama" style="color:white;"/>Drama</label></a>
+						<a href="#" class="genres"><label><input type="checkbox" id="Fantasy" name="Genres" value="Fantasy" style="color:white;"/>Fantasy</label></a>
+						<a href="#" class="genres"><label><input type="checkbox" id="Horror" name="Genres" value="Horror" style="color:white;"/>Horror</label></a>
+						<a href="#" class="genres"><label><input type="checkbox" id="Mystery" name="Genres" value="Mystery" style="color:white;"/>Mystery</label></a>
+						<a href="#" class="genres"><label><input type="checkbox" id="Romance" name="Genres" value="Romance" style="color:white;"/>Romance</label></a>
+						<a href="#" class="genres"><label><input type="checkbox" id="Sci-Fi" name="Genres" value="Sci-Fi" style="color:white;"/>Sci-Fi</label></a>
+						<a href="#" class="genres"><label><input type="checkbox" id="Thriller" name="Genres" value="Thriller" style="color:white;"/>Thriller</label></a>
+
+
+						<a href="#"><input type="text" readonly id="languagechk" onclick="showlanguage()" value="Language" name="Language"></a>
+						<a href="#" class="languages"><label><input type="checkbox" id="English" value="English" name="English" style="color:white;"/>English</label></a>
+						<a href="#" class="languages"><label><input type="checkbox" id="Hindi" name="Hindi" value="Hindi" style="color:white;"/>Hindi</label></a>
+						<center><span><a href="#"><button  id="Apply" name="Apply" value="Apply" onclick="obj.fetchfilter()" class="button" style="text-align:center;margin-top:0px;height:2em" data-button="Apply">APPLY</button></a></span></center>
+					</div>
+
+				</div>
+			</div>
+			<div style="min-height:6em;">
+			<div id="container" hidden="hidden" style="width:8em;margin-right:3em;max-height:4em;"></div>
+			</div>
+		</div>
+		<!--ends here-->
+		<h2 style="font-weight: normal; padding-top:10px;margin-left:2%;margin-top:0%;color: white;" > MOVIES </h2><br>
+		<div id="displaydiv" style="margin-left:2%;margin-right:2%;height:10%;margin-top:-1%;">&nbsp</div>
+		<br>
+	</div>
+
+	<div style="min-height:18em; background-image: url('img/bg-11.jpg');">
+		<h2 style="font-weight: normal; padding-top:10px;margin-left:2%;margin-top:0%;color: white;" > LATEST </h2><br>
+		<div id="Latestdiv" style="width:100%;margin-left:2%;margin-right:2%;height:10%;margin-top:-1%;">&nbsp</div>
+		<br>
+	</div>
+
+	<div style="min-height:18em; background-image: url('img/bg-8.jpg');">
+		<h2 style="font-weight: normal; padding-top:10px;margin-left:2%;margin-top:0%;color: white;" > WHAT'S HOT </h2><br>
+		<div id="Populardiv" style="width:100%;margin-left:2%;margin-right:2%;height:10%;margin-top:-1%;">&nbsp</div>
+		<br>
+	</div>
+
+	<div style="min-height:18em; background-image: url('img/bg-10.jpg');">
+		<h2 style="font-weight: normal; padding-top:10px;margin-left:2%;margin-top:0%;color: white;" > SIMILAR MOVIES </h2><br>
+		<div id="Recommenddiv" style="width:100%;margin-left:2%;margin-right:2%;height:10%;margin-top:-1%;">&nbsp</div><!--text-align: center;"><br><br><br><br><br><br><span style="font-size:1.5em;">Coming Soon</span></div>-->
+		<br>
+	</div>
+
+	<div style="min-height:18em; background-image: url('img/bg-7.jpg');">
+		<h2 style="font-weight: normal; padding-top:10px;margin-left:2%;margin-top:0%;color: white;" > WATCH AGAIN </h2><br>
+		<div id="Watchagaindiv" style="width:100%;margin-left:2%;margin-right:2%;height:10%;margin-top:-1%;">&nbsp</div>
+		<br>
+	</div>
+
+	<script>
+		//var genre=document.getElementById("genrechk");
+		//genre.addEventListener("click",showgenre,false);
+
+		var genres=document.getElementsByClassName("genres");
+		var languages=document.getElementsByClassName("languages");
+		var genre_selected=0;
+		var language_selected=0;
+		var i;
+		for (i=0;i<genres.length;i++){
+			genres[i].style.display="none";
+		}
+		for (i=0;i<languages.length;i++){
+			languages[i].style.display="none";
+		}
+		function showgenre(e){
+			if(genre_selected==0){
+				for (i=0;i<genres.length;i++){
+					genres[i].style.display="block";
+				}
+				genre_selected=1;
+			}
+			else if(genre_selected==1){
+				for (i=0;i<genres.length;i++){
+					genres[i].style.display="none";
+				}
+				genre_selected=0;
+			}
+		};
+		function showlanguage(e){
+			if(language_selected==0){
+				for (i=0;i<languages.length;i++){
+					languages[i].style.display="block";
+				}
+				language_selected=1;
+			}
+			else if(language_selected==1){
+				for (i=0;i<languages.length;i++){
+					languages[i].style.display="none";
+				}
+				language_selected=0;
+			}
+		};
+	</script>
+
+
+
+
+	<!-- Footer section -->
+	<footer class="footer-section">
+		<div class="container">
+			<ul class="footer-menu">
+				<li><a href="index.php">Home</a></li>
+				<li><a href="aboutUs_withoutLogin.html">About</a></li>
+				<li><a href="contactUs_withoutLogin.html">Contact</a></li>
+			</ul>
+			<p class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This website is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="index.php">The A-Team</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+</p>
+		</div>
+	</footer>
+	<!-- Footer section end -->
+
+
+
+</body>
+</html>
